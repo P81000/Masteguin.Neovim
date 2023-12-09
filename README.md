@@ -23,3 +23,4 @@ Basic and initial Neovim configurations to learn and develop in: C/C++, Java, JS
 
 #### **TODO: Configure and set up a LaTeX environment**
 
+
