@@ -17,7 +17,8 @@ require('mason-lspconfig').setup({
                     'clangd',
                     'volar',
                     'html',
-                    'cssls'
+                    'cssls',
+                    'marksman' 
                 },
   handlers = {
     lsp_zero.default_setup,
