@@ -1,7 +1,7 @@
 # My Neovim Setup for Development and Learning
 
 <p align="center">
-  <img src="https://placekitten.com/800/400" alt="Neovim in Action">
+  <img src="https://raw.githubusercontent.com/neovim/neovim.github.io/master/logos/neovim-logo-300x87.png" alt="Neovim in Action">
 </p>
 
 Basic and initial Neovim configurations to learn and develop in: C/C++, Java, JS, Vue, Python, Rust.
@@ -17,16 +17,8 @@ Basic and initial Neovim configurations to learn and develop in: C/C++, Java, JS
 - [LSP Zero](https://github.com/VonHeikemen/lsp-zero.nvim)
 - [NVim LSP Installer](https://github.com/williamboman/nvim-lsp-installer)
 
-<p align="center">
-  <img src="https://placekitten.com/800/400" alt="Neovim with Plugins">
-</p>
-
 **Still in progress but already there:**
 - [VimTex](https://github.com/lervag/vimtex)
 
-<p align="center">
-  <img src="https://placekitten.com/800/400" alt="VimTex in Action">
-</p>
-
-## TODO: Configure and set up a LaTeX environment
+## **TODO: Configure and set up a LaTeX environment**
 
