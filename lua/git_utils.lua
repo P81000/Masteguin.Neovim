@@ -12,7 +12,7 @@ end
 function M.git_push(options)
     local branch_name = vim.fn.input('Branch name: ')
     if commit_msg ~= '' then
-        vim.fn.syste('git push '.. options .. ' -u origin "' .. branch_name .. '"')
+        vim.fn.system('git push '.. options .. ' -u origin "' .. branch_name .. '"')
     else
         print('Specify a branch name.')
     end
