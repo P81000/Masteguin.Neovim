@@ -1,0 +1,3 @@
+require('masteguin')
+print('hello')
+
