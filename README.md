@@ -6,7 +6,8 @@
 
 Basic and initial Neovim configurations to learn and develop in: C/C++, Java, JS, Vue, Python, Rust.
 
-## Plugins installed for now:  --Note-- Using Packer.nvim to manage plugins
+*** --Using Packer.nvim to manage plugins-- ***
+## Plugins installed for now:  
 - [Packer](https://github.com/wbthomason/packer.nvim)
 - [Telescope](https://github.com/nvim-telescope/telescope.nvim)
 - [Rose-Pine](https://github.com/rose-pine/neovim)
