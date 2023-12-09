@@ -17,9 +17,8 @@ Basic and initial Neovim configurations to learn and develop in: C/C++, Java, JS
 - [Fugitive](https://github.com/tpope/vim-fugitive) 
 - [LSP Zero](https://github.com/VonHeikemen/lsp-zero.nvim)
 - [NVim LSP Installer](https://github.com/williamboman/nvim-lsp-installer)
-
 **Still in progress but already there:**
 - [VimTex](https://github.com/lervag/vimtex)
 
-## **TODO: Configure and set up a LaTeX environment**
+#### **TODO: Configure and set up a LaTeX environment**
 
