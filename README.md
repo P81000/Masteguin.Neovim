@@ -21,6 +21,7 @@ Basic and initial Neovim configurations to learn and develop in: C/C++, Java, JS
 **Still in progress but already there:**
 - [VimTex](https://github.com/lervag/vimtex)
 
-#### **TODO: Configure and set up a LaTeX environment**
+## Updates
 
+Basic set up for latex is working with MiKTeX - TODO: Improve configs
 
