@@ -37,5 +37,7 @@ return require('packer').startup(function(use)
 		}
 	}
 	use( 'williamboman/nvim-lsp-installer' )
-    use( 'lervag/vimtex' )
+    use({
+        'lervag/vimtex', 
+    })
 end)
