@@ -40,4 +40,5 @@ return require('packer').startup(function(use)
     use({
         'lervag/vimtex', 
     })
+    use( 'NLKNguyen/papercolor-theme' )
 end)
