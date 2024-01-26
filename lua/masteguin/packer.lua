@@ -5,7 +5,10 @@ return require('packer').startup(function(use)
 
 	use {
 		'nvim-telescope/telescope.nvim', tag = '0.1.5',
-		requires = { {'nvim-lua/plenary.nvim'} }
+		requires = { 
+            {'nvim-lua/plenary.nvim'},
+            {'nvim-telescope/telescope-fzf-native.nvim'}
+        }
 	}
 	
 	use({
@@ -15,6 +18,22 @@ return require('packer').startup(function(use)
 			vim.cmd('colorscheme rose-pine')
 		end
 	})
+    
+    use({
+        'water-sucks/darkrose.nvim',
+        as = 'darkrose',
+        config = function()
+            vim.cmd('colorscheme darkrose')
+        end
+    })
+
+    use({
+        'srcery-colors/srcery-vim',
+        as = 'srcery',
+        config = function()
+            vim.cmd('colorscheme srcery')
+        end
+    })
 
     use( 'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 

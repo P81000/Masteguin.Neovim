@@ -84,6 +84,12 @@ _G.packer_plugins = {
     path = "/home/p81000/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
+  darkrose = {
+    config = { "\27LJ\2\n8\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\25colorscheme darkrose\bcmd\bvim\0" },
+    loaded = true,
+    path = "/home/p81000/.local/share/nvim/site/pack/packer/start/darkrose",
+    url = "https://github.com/water-sucks/darkrose.nvim"
+  },
   harpoon = {
     loaded = true,
     path = "/home/p81000/.local/share/nvim/site/pack/packer/start/harpoon",
@@ -135,6 +141,17 @@ _G.packer_plugins = {
     path = "/home/p81000/.local/share/nvim/site/pack/packer/start/rose-pine",
     url = "https://github.com/rose-pine/neovim"
   },
+  srcery = {
+    config = { "\27LJ\2\n6\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\23colorscheme srcery\bcmd\bvim\0" },
+    loaded = true,
+    path = "/home/p81000/.local/share/nvim/site/pack/packer/start/srcery",
+    url = "https://github.com/srcery-colors/srcery-vim"
+  },
+  ["telescope-fzf-native.nvim"] = {
+    loaded = true,
+    path = "/home/p81000/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",
+    url = "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/home/p81000/.local/share/nvim/site/pack/packer/start/telescope.nvim",
@@ -158,10 +175,18 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: srcery
+time([[Config for srcery]], true)
+try_loadstring("\27LJ\2\n6\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\23colorscheme srcery\bcmd\bvim\0", "config", "srcery")
+time([[Config for srcery]], false)
 -- Config for: rose-pine
 time([[Config for rose-pine]], true)
 try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\0", "config", "rose-pine")
 time([[Config for rose-pine]], false)
+-- Config for: darkrose
+time([[Config for darkrose]], true)
+try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\25colorscheme darkrose\bcmd\bvim\0", "config", "darkrose")
+time([[Config for darkrose]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
