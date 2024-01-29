@@ -35,6 +35,14 @@ return require('packer').startup(function(use)
         end
     })
 
+    use({
+        "EdenEast/nightfox.nvim",
+        as = 'nightfox',
+        config = function()
+            vim.cmd('colorscheme nightfox')
+        end
+    })
+
     use( 'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 
     use( 'theprimeagen/harpoon' )
