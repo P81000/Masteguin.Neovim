@@ -9,11 +9,11 @@ local theme_file_path = vim.fn.stdpath('config') .. '/last_selected_theme'
 
 if not vim.g.selected_theme then
     -- Tente ler a última opção escolhida do arquivo
-    local last_theme = vim.fn.filereadable(theme_file_path) == 1 and vim.fn.readfile(theme_file_path)[1] or 'darkrose'
+    local last_theme = vim.fn.filereadable(theme_file_path) == 1 and vim.fn.readfile(theme_file_path)[1] or 'carbonfox'
     vim.g.selected_theme = last_theme
 end
 
-local available_themes = {'darkrose', 'rose-pine', 'srcery', 'nightfox'}
+local available_themes = {'darkrose', 'rose-pine', 'srcery', 'carbonfox', 'moonfly', 'cyberdream'}
 
 function changeTheme()
   local theme_opts = themes.get_dropdown {

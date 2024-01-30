@@ -43,6 +43,28 @@ return require('packer').startup(function(use)
         end
     })
 
+    use({
+        "bluz71/vim-moonfly-colors",
+        as = 'moonfly',
+        config = function()
+            vim.cmd('colorscheme moonfly')
+        end
+    })
+
+    use({
+        "scottmckendry/cyberdream.nvim",
+        as = 'cyberdream',
+        config = function()
+            require("cyberdream").setup({
+                transparent = true,
+                italic_comments = true,
+                hide_fillchars = true,
+                bordeless_telescope = true,
+            })
+            vim.cmd('colorscheme cyberdream')
+        end
+    })
+
     use( 'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 
     use( 'theprimeagen/harpoon' )
