@@ -7,3 +7,6 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "<leader>y", "\"+y")
 
 vim.keymap.set("n", "<leader>ct", ":lua changeTheme()<CR>")
+
+vim.api.nvim_set_keymap("i", "'", '"', { noremap = true })
+vim.api.nvim_set_keymap("i", '"', "'", { noremap = true })
