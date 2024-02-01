@@ -10,3 +10,5 @@ vim.keymap.set("n", "<leader>ct", ":lua changeTheme()<CR>")
 
 vim.api.nvim_set_keymap("i", "'", '"', { noremap = true })
 vim.api.nvim_set_keymap("i", '"', "'", { noremap = true })
+
+vim.api.nvim_set_keymap("i", "<TAB>", "pumvisible() ? '<C-y>' : '<TAB>'", { expr = true, noremap = true, silent = true })
