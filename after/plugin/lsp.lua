@@ -4,7 +4,7 @@ lsp_zero.on_attach(function(client, bufnr)
   -- see :help lsp-zero-keybindings
   -- to learn the available actions
   lsp_zero.default_keymaps({buffer = bufnr})
-  vim.api.nvim_buf_set_keymap(bufnr, 'i', '<Tab>', '<C-n><C-y>', { noremap = true, silent = true })
+  vim.api.nvim_buf_set_keymap(bufnr, 'i', '<Tab>', '<C-n>', { noremap = true, silent = true })
 end)
 
 require('mason').setup({})
