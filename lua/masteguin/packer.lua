@@ -92,7 +92,7 @@ return require('packer').startup(function(use)
 
     use( 'williamboman/mason.nvim' )
 
-    use({
-        'lervag/vimtex', 
-        })
+    use( 'lervag/vimtex' )
+
+    use( "andweeb/presence.nvim" )
 end)
