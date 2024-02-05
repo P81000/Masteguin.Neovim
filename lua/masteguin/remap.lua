@@ -10,3 +10,6 @@ vim.keymap.set("n", "<leader>ct", ":lua changeTheme()<CR>")
 
 vim.api.nvim_set_keymap("i", "'", '"', { noremap = true })
 vim.api.nvim_set_keymap("i", '"', "'", { noremap = true })
+
+vim.keymap.set("n", "<leader>w", function() vim.cmd("w") end, { noremap = true, silent=true })
+vim.keymap.set("n", "<leader>q", function() vim.cmd("q") end, { noremap = true, silent=true })
