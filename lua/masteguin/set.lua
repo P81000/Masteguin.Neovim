@@ -41,4 +41,4 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.opt.spelllang = "en_us"
-vim.cmd("set spell syntax=on")
+vim.opt.spell = true
