@@ -4,7 +4,7 @@
   <img src="https://raw.githubusercontent.com/neovim/neovim.github.io/master/logos/neovim-logo-300x87.png" alt="Neovim in Action">
 </p>
 
-My personal environment and neovim configuration to Computer Science general purpose study and develop in C/C++, Rust, Python, Lua, Bash and 
+My personal environment and Neovim configuration for general purpose study and development in Computer Science, including C/C++, Rust, Python, Lua, Bash, and more.
 
 **Some of the plugins installed →** 
 - [Packer](https://github.com/wbthomason/packer.nvim)
