@@ -31,6 +31,7 @@ My personal environment and Neovim configuration for general purpose study and d
 - A fuzzy-based theme picker to switch between themes installed
 - Swap ' key to " key (I code in C and is a time saver not type shift)
 - Remap to :w, :q, :wq and :so commands
+    - If there are any unsaved changes, the <leader>q (remap for:q) will display an error message and navigate to the first item in the modified buffer.
 - A couple of git functions and remaps to status, add, commit and push directly from vim
 - Markdown previewer with Glow - Implemented a toggle function
 
