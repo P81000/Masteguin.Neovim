@@ -95,4 +95,6 @@ return require('packer').startup(function(use)
     use( 'lervag/vimtex' )
 
     use( "andweeb/presence.nvim" )
+
+    use({ "ellisonleao/glow.nvim", config = function() require("glow").setup() end })
 end)
