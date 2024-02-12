@@ -35,4 +35,5 @@ My personal environment and neovim configuration to Computer Science general pur
 - Markdown previewer with Glow - Implemented a toggle function
 
 **----------**
+
 I work on this repo more than I talk to my wife. I'm always working on something new.
