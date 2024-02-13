@@ -17,6 +17,7 @@ My personal environment and Neovim configuration for general purpose study and d
 - [NVim LSP Installer](https://github.com/williamboman/nvim-lsp-installer)
 - [VimTex](https://github.com/lervag/vimtex)
 - [Discord Presence](https://github.com/andweeb/presence.nvim)
+- [Slint](https://github.com/slint-ui)
 
 **Themes installed →**
 - [Rose Pine](https://github.com/rose-pine/neovim)
