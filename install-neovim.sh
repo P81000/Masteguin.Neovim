@@ -9,14 +9,16 @@ STABLE_VERSION="https://github.com/neovim/neovim/releases/download/stable/nvim-l
 INSTALL_DIR="$HOME_DIR/.local/neovim"
 CONFIGS="https://github.com/P81000/Masteguin.Neovim.git"
 CONFIG_DIR="$HOME_DIR/.config/nvim"
-LOCAL_BIN="$HOME_DIR/.local/bin/nvim"
+LOCAL_BIN="$HOME_DIR/.local/bin"
 
 # - Install Neovim - #
-if [ ! -x "$LOCAL_BIN" ]; then
+if [ ! -x "$LOCAL_BIN/nvim" ]; then
     mkdir -p $INSTALL_DIR
+    mkdir -p $LOCAL_BIN
     curl -o $INSTALL_DIR/nvim-linux64.tar.gz -LO $STABLE_VERSION
     tar xzvf $INSTALL_DIR/nvim-linux64.tar.gz -C $INSTALL_DIR
-    sudo ln -s $INSTALL_DIR/nvim-linux64/bin/nvim $LOCAL_BIN 
+    ln -s $INSTALL_DIR/nvim-linux64/bin/nvim $LOCAL_BIN/nvim
+    PATH="$LOCAL_BIN:$PATH"
 else
     echo "Neovim is already installed"
 fi
