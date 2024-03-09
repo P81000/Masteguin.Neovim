@@ -9,7 +9,7 @@ STABLE_VERSION="https://github.com/neovim/neovim/releases/download/stable/nvim-l
 INSTALL_DIR="$HOME_DIR/.local/neovim"
 CONFIGS="https://github.com/P81000/Masteguin.Neovim.git"
 CONFIG_DIR="$HOME_DIR/.config/nvim"
-LOCAL_BIN="$HOME_DIR/.local/bin"
+LOCAL_BIN="$HOME_DIR/.local/bin/nvim"
 
 # - Install Neovim - #
 if [ ! -x "$LOCAL_BIN" ]; then
