@@ -11,11 +11,11 @@ CONFIGS="https://github.com/P81000/Masteguin.Neovim.git"
 CONFIG_DIR="$HOME_DIR/.config/nvim"
 
 # - Install Neovim - #
-if ! command -v nvim &> /dev/null; then
+if [ ! -x "/bin/nvim" ]; then
     mkdir -p $INSTALL_DIR
     curl -o $INSTALL_DIR/nvim-linux64.tar.gz -LO $STABLE_VERSION
     tar xzvf $INSTALL_DIR/nvim-linux64.tar.gz -C $INSTALL_DIR
-    sudo ln -s $INSTALL_DIR/nvim-linux64/bin/nvim /bin/nvim
+    sudo ln -s $INSTALL_DIR/nvim-linux64/bin/nvim $HOME_DIR/.local/bin 
 else
     echo "Neovim is already installed"
 fi
