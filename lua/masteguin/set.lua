@@ -45,3 +45,10 @@ vim.opt.updatetime = 50
 
 vim.opt.spelllang = "en_us"
 vim.opt.spell = true
+
+vim.cmd([[
+    augroup auto_save
+        autocmd!
+        autocmd InsertLeave * write
+    augroup END
+]])
