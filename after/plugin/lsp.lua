@@ -12,7 +12,7 @@ require('mason-lspconfig').setup({
   -- with the ones you want to install
   ensure_installed = {
                     'volar',
-                    'pyright',
+                    'pylsp'
                     'clangd',
                     'cssls',
                     'html',
@@ -21,6 +21,7 @@ require('mason-lspconfig').setup({
                     'slint_lsp',
                     'texlab',
                     'tsserver',
+                    'solc'
                 },
   handlers = {
     lsp_zero.default_setup,
