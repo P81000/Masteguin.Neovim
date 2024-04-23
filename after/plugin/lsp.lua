@@ -12,7 +12,7 @@ require('mason-lspconfig').setup({
   -- with the ones you want to install
   ensure_installed = {
                     'volar',
-                    'pylsp'
+                    'pylsp',
                     'clangd',
                     'cssls',
                     'html',
