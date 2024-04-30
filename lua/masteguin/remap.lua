@@ -27,5 +27,6 @@ end, { noremap = true, silent=true })
 vim.keymap.set("n", "<leader>wq", function() vim.cmd("wq") end, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>so", function() vim.cmd("so") end, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>wa", ":wa<CR>")
+vim.keymap.set("n", "<leader>qq", ":q!<CR>")
 
 vim.keymap.set("n", "<leader>hl", function() if vim.o.hlsearch then vim.cmd("nohlsearch") else vim.cmd("set hlsearch") end end, { noremap = true, silent = true })
