@@ -13,7 +13,7 @@ if not vim.g.selected_theme then
     vim.g.selected_theme = last_theme
 end
 
-local available_themes = {'darkrose', 'rose-pine', 'srcery', 'carbonfox', 'moonfly', 'cyberdream'}
+local available_themes = {'darkrose', 'rose-pine', 'srcery', 'carbonfox', 'moonfly', 'cyberdream', 'PaperColor'}
 
 function changeTheme()
   local theme_opts = themes.get_dropdown {

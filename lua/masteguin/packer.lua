@@ -65,6 +65,14 @@ return require('packer').startup(function(use)
         end
     })
 
+    use({
+        "NLKNguyen/papercolor-theme",
+        as = "PaperColor",
+        config = function()
+            vim.cmd("colorscheme PaperColor")
+        end
+    })
+
     use( 'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 
     use( 'theprimeagen/harpoon' )
