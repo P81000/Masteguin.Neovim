@@ -23,7 +23,7 @@ else
 fi
 
 # - Config - #
-git clone -b test-script --single-branch $CONFIGS $CONFIG_DIR
+git clone -b Masteguin.Neovim --single-branch $CONFIGS $CONFIG_DIR
 
 git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
