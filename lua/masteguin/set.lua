@@ -49,6 +49,6 @@ vim.opt.spell = true
 vim.cmd([[
     augroup auto_save
         autocmd!
-        autocmd InsertLeave * if expand("%:p") !=# "" | write | endif
+        autocmd InsertLeave * if expand("%:p") !=# "" | write! | endif
     augroup END
 ]])
