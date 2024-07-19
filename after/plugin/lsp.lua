@@ -10,17 +10,17 @@ require('mason').setup({})
 require('mason-lspconfig').setup({
   -- Replace the language servers listed here 
   -- with the ones you want to install
-  ensure_installed = {
-                    'pylsp',
-                    'clangd',
-                    'cssls',
-                    'html',
-                    'marksman',
-                    'rust_analyzer',
-                    'slint_lsp',
-                    'texlab',
-                    'solc'
-                },
+--   ensure_installed = {
+--                     'pylsp',
+--                     'clangd',
+--                     'cssls',
+--                     'html',
+--                     'marksman',
+--                     'rust_analyzer',
+--                     'slint_lsp',
+--                     'texlab',
+--                     'solc'
+--                 },
   handlers = {
     lsp_zero.default_setup,
   },

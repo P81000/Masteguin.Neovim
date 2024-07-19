@@ -23,14 +23,14 @@ else
 fi
 
 # - Config - #
-git clone $CONFIGS $CONFIG_DIR
+git clone -b Masteguin.Neovim --single-branch $CONFIGS $CONFIG_DIR
 
 git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 find $CONFIG_DIR -type f -name "*.lua" -exec nvim --headless -s -c "source {}" > /dev/null 2>&1 \;
 
 timeout=5
-timeout $timeout nvim --headless -S $CONFIG_DIR/lua/masteguin/packer.lua -c 'lua require("packer").sync()'
+timeout $timeout nvim --headless -S $CONFIG_DIR/lua/masteguin/packer.lua -c 'lua require("packer").sync()' 2>/dev/null
 
 nvim -c 'q'
 

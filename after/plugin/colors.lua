@@ -13,7 +13,7 @@ if not vim.g.selected_theme then
     vim.g.selected_theme = last_theme
 end
 
-local available_themes = {'darkrose', 'rose-pine', 'srcery', 'carbonfox', 'moonfly', 'cyberdream', 'PaperColor'}
+local available_themes = {'darkrose', 'rose-pine', 'srcery', 'carbonfox', 'moonfly', 'cyberdream', 'PaperColor', 'no-clown-fiesta'}
 
 function changeTheme()
   local theme_opts = themes.get_dropdown {
@@ -64,6 +64,6 @@ function changeTheme()
 end
 
 vim.cmd.colorscheme(vim.g.selected_theme)
-vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+-- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+-- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
 

@@ -73,6 +73,14 @@ return require('packer').startup(function(use)
         end
     })
 
+    use({
+        "no-clown-fiesta/no-clown-fiesta.nvim",
+        as = "no-clown-fiesta",
+        config = function()
+            vim.cmd("colorscheme no-clown-fiesta")
+        end
+    })
+
     use( 'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 
     use( 'theprimeagen/harpoon' )
