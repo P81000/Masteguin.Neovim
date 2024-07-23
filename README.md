@@ -26,15 +26,33 @@ My personal environment and Neovim configuration for general purpose study and d
 - [Nightfox](https://github.com/EdenEast/nightfox.nvim)
 - [Moonfly](https://github.com/bluz71/vim-moonfly-colors)
 - [Cyberdream](https://github.com/scottmckendry/cyberdream.nvim)
+- [PaperColor](https://github.com/NLKNguyen/papercolor-theme)
+- [No Clow Fiesta](https://github.com/no-clow-fiesta/no-clow-fiesta.nvim)
 
 **Some additional features →**
 - Spell checker
 - A fuzzy-based theme picker to switch between themes installed
 - Swap ' key to " key (I code in C and is a time saver not type shift)
 - Remap to :w, :q, :wq and :so commands
-    - If there are any unsaved changes, the <leader>q (remap for:q) will display an error message and navigate to the first item in the modified buffer.
+    - If there are any unsaved changes, the <leader>q (remap for :q) will display an error message and navigate to the first item in the modified buffer.
 - A couple of git functions and remaps to status, add, commit and push directly from vim
 - Markdown previewer with Glow - Implemented a toggle function
+- Easy exit from terminal mode
+
+
+Considerations about the Install Script
+
+The `install-neovim.sh` script has two main parts:
+
+- Installing Neovim (latest stable version):
+   The script verifies if Neovim is already installed on the system by searching for `nvim` binary in `/bin` folder - If not found, it downloads the version tagged as stable from Neovim GitHub releases, extracts it, and installs it.
+- Installing Masteguin.Neovim configuration:
+    After installing neovim, script clones `Masteguin.Neovim` branch from this repository, clones packer repository, sources all `*.lua` files and installs/updates `packer.lua`.
+
+**IT'S HIGHLY RECOMMENDED TO READ THE SCRIPT**
+Even if you trust me, read the script. Not only to know what is going on but also to provide feedback on how to improve it.
+
+Be free to try my neovim configurations and also report any bugs, so we can improve this together.
 
 **----------**
 
