@@ -27,8 +27,13 @@ end, { noremap = true, silent=true })
 vim.keymap.set("n", "<leader>wq", function() vim.cmd("wq") end, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>so", function() vim.cmd("so") end, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>wa", ":wa<CR>")
-vim.keymap.set("n", "<leader>qq", ":q!<CR>")
+vim.keymap.set("n", "<leader>fq", ":q!<CR>")
 
 vim.keymap.set("n", "<leader>hl", function() if vim.o.hlsearch then vim.cmd("nohlsearch") else vim.cmd("set hlsearch") end end, { noremap = true, silent = true })
 
 vim.keymap.set("t", "<leader><ESC>", "<C-\\><C-n>", { noremap = true })
+vim.keymap.set("n", "<leader>0", "$", { noremap = true })
+vim.keymap.set("v", "<leader>0", "$", { noremap = true })
+
+vim.keymap.set("n", "<leader>tn", ":tabnext<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>tp", ":tabprev<CR>", { noremap = true })
