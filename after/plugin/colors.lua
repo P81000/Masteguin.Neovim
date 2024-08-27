@@ -9,7 +9,7 @@ local theme_file_path = vim.fn.stdpath('config') .. '/last_selected_theme'
 
 if not vim.g.selected_theme then
     -- Tente ler a última opção escolhida do arquivo
-    local last_theme = vim.fn.filereadable(theme_file_path) == 1 and vim.fn.readfile(theme_file_path)[1] or 'carbonfox'
+    local last_theme = vim.fn.filereadable(theme_file_path) == 1 and vim.fn.readfile(theme_file_path)[1] or 'rose-pine'
     vim.g.selected_theme = last_theme
 end
 
@@ -64,6 +64,5 @@ function changeTheme()
 end
 
 vim.cmd.colorscheme(vim.g.selected_theme)
--- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
--- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-
+vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
