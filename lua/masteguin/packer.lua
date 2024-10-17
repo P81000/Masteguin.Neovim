@@ -56,10 +56,7 @@ return require('packer').startup(function(use)
         as = 'cyberdream',
         config = function()
             require("cyberdream").setup({
-                transparent = true,
                 italic_comments = true,
-                hide_fillchars = true,
-                bordeless_telescope = true,
             })
             vim.cmd('colorscheme cyberdream')
         end
