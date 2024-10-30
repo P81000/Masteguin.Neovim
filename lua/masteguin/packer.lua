@@ -78,6 +78,22 @@ return require('packer').startup(function(use)
         end
     })
 
+    use({
+        "killitar/obscure.nvim",
+        as = "obscure",
+        config = function()
+            vim.cmd("colorscheme obscure")
+        end
+    })
+
+    use({
+        "iruzo/matrix-nvim",
+        as = "matrix",
+        config = function()
+            vim.cmd("colorscheme matrix")
+        end
+    })
+
     use( 'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 
     use( 'theprimeagen/harpoon' )
