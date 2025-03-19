@@ -52,3 +52,7 @@ vim.cmd([[
         autocmd InsertLeave * if expand("%:p") !=# "" | write | endif
     augroup END
 ]])
+
+vim.diagnostic.config({
+  virtual_lines = { current_line = true },
+})
