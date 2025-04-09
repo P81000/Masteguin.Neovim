@@ -120,12 +120,4 @@ return require('packer').startup(function(use)
     }
 
     use( 'williamboman/mason.nvim' )
-
-    use( 'lervag/vimtex' )
-
-    use( "andweeb/presence.nvim" )
-
-    use({ "ellisonleao/glow.nvim", config = function() require("glow").setup() end })
-
-    use({ "slint-ui/vim-slint" })
 end)

@@ -1,17 +1,17 @@
 vim.opt.guicursor = ""
 
-vim.o.clipboard = "unnamedplus"
+
 vim.g.clipboard = {
-    name = 'xclip',
+    name = "WslClipboard",
     copy = {
-        ['+'] = 'xclip -selection clipboard',
-        ['*'] = 'xclip -selection primary',
+        ["+"] = "clip.exe",
+        ["*"] = "clip.exe",
     },
     paste = {
-        ['+'] = 'xclip -selection clipboard -o',
-        ['*'] = 'xclip -selection primary -o',
+        ["+"] = "powershell.exe -NoProfile -Command Get-Clipboard",
+        ["*"] = "powershell.exe -NoProfile -Command Get-Clipboard",
     },
-    cache_enabled = 0,
+
 }
 
 vim.opt.nu = true
