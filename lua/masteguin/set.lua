@@ -1,6 +1,5 @@
 vim.opt.guicursor = ""
 
-
 vim.g.clipboard = {
     name = "WslClipboard",
     copy = {
@@ -27,7 +26,10 @@ vim.opt.smartindent = true
 vim.opt.linebreak = true
 vim.opt.wrap = true
 vim.opt.breakindent = true
-vim.opt.showbreak = string.rep(" ", 3)
+-- vim.opt.showbreak = string.rep(" ", 3)
+vim.opt.showbreak = "↪ "
+
+vim.opt.colorcolumn = "80"
 
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -46,12 +48,12 @@ vim.opt.updatetime = 50
 vim.opt.spelllang = "en_us"
 vim.opt.spell = true
 
-vim.cmd([[
-    augroup auto_save
-        autocmd!
-        autocmd InsertLeave * if expand("%:p") !=# "" | write | endif
-    augroup END
-]])
+-- vim.cmd([[
+--     augroup auto_save
+--         autocmd!
+--         autocmd InsertLeave * if &modifiable && !&readonly && expand('%') != '' | silent! write | endif
+--     augroup END
+-- ]])
 
 vim.diagnostic.config({
   virtual_lines = { current_line = true },
