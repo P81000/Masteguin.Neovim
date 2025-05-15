@@ -46,12 +46,12 @@ vim.opt.updatetime = 50
 vim.opt.spelllang = "en_us"
 vim.opt.spell = true
 
-vim.cmd([[
-    augroup auto_save
-        autocmd!
-        autocmd InsertLeave * if expand("%:p") !=# "" | write | endif
-    augroup END
-]])
+-- vim.cmd([[
+--     augroup auto_save
+--         autocmd!
+--         autocmd InsertLeave * if expand("%:p") !=# "" | write | endif
+--     augroup END
+-- ]])
 
 vim.diagnostic.config({
   virtual_lines = { current_line = true },
