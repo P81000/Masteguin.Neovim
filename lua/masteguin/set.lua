@@ -58,3 +58,10 @@ vim.opt.spell = true
 vim.diagnostic.config({
   virtual_lines = { current_line = true },
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "*",
+    callback = function()
+        vim.wo.winbar = nil
+    end,
+})

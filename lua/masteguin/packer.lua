@@ -93,6 +93,14 @@ return require('packer').startup(function(use)
         end
     })
 
+    use({
+        "savq/melange-nvim",
+        as = "melange",
+        config = function()
+            vim.cmd("colorscheme melange")
+        end
+    })
+
     use( 'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 
     use( 'theprimeagen/harpoon' )
@@ -131,7 +139,11 @@ return require('packer').startup(function(use)
         'nvimdev/lspsaga.nvim',
         after = 'nvim-lspconfig',
         config = function()
-            require('lspsaga').setup({})
+            require('lspsaga').setup({
+                symbol_in_winbar = {
+                    enable = false,
+                }
+            })
         end,
     })
 end)

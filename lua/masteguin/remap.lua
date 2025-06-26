@@ -67,3 +67,10 @@ vim.keymap.set('n', '<leader>gd', '<cmd>Lspsaga peek_definition<CR>', { silent =
 vim.keymap.set('n', '<leader>gD', '<cmd>Lspsaga peek_type_definition<CR>', { silent = true, noremap = true })
 vim.keymap.set('n', '<leader>f', '<cmd>Lspsaga finder<CR>', { silent = true, noremap = true })
 vim.keymap.set('n', '<leader>t', '<cmd>Lspsaga term_toggle<CR>', { silent = true, noremap = true })
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "*",
+    callback = function()
+        vim.keymap.set("n", "<leader><Tab>", "gt", { buffer = true, silent = true })
+    end,
+})
