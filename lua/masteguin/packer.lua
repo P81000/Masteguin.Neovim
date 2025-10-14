@@ -10,14 +10,6 @@ return require('packer').startup(function(use)
         }
 	}
 	
-	use({
-		'rose-pine/neovim',
-		as = 'rose-pine',
-		config = function()
-			vim.cmd('colorscheme rose-pine')
-		end
-	})
-    
     use({
         'water-sucks/darkrose.nvim',
         as = 'darkrose',
@@ -47,17 +39,6 @@ return require('packer').startup(function(use)
         as = 'moonfly',
         config = function()
             vim.cmd('colorscheme moonfly')
-        end
-    })
-
-    use({
-        "scottmckendry/cyberdream.nvim",
-        as = 'cyberdream',
-        config = function()
-            require("cyberdream").setup({
-                italic_comments = true,
-            })
-            vim.cmd('colorscheme cyberdream')
         end
     })
 
@@ -146,4 +127,20 @@ return require('packer').startup(function(use)
             })
         end,
     })
+
+    use ( 'tpope/vim-sleuth' )
+
+    use ({
+        'APZelos/blamer.nvim',
+        config = function()
+            vim.g.blamer_enabled = true
+            vim.g.blamer_delay = 1000
+            vim.g.blamer_show_in_visual_modes = 0
+            vim.g.blamer_show_in_insert_modes = 0
+            vim.g.blamer_prefix = ' > '
+            vim.g.blamer_relative_time = 1
+        end,
+    })
+
+
 end)

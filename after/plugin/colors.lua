@@ -13,7 +13,7 @@ if not vim.g.selected_theme then
     vim.g.selected_theme = last_theme
 end
 
-local available_themes = {'darkrose', 'rose-pine', 'srcery', 'carbonfox', 'moonfly', 'cyberdream', 'PaperColor', 'no-clown-fiesta', "obscure", "matrix", "melange"}
+local available_themes = {'darkrose', 'srcery', 'carbonfox', 'moonfly', 'PaperColor', 'no-clown-fiesta', "obscure", "matrix", "melange"}
 
 function changeTheme()
   local theme_opts = themes.get_dropdown {
@@ -43,8 +43,8 @@ function changeTheme()
         print("Selected " .. selection.value .. " as NeoVim theme")
         vim.g.selected_theme = selection.value
         vim.cmd.colorscheme(vim.g.selected_theme)
---         vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
---         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+        vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+        vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
 
         -- Salve a escolha do tema no arquivo
         vim.fn.writefile({vim.g.selected_theme}, theme_file_path)
@@ -64,5 +64,5 @@ function changeTheme()
 end
 
 vim.cmd.colorscheme(vim.g.selected_theme)
--- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
--- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })

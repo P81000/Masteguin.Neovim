@@ -1,27 +1,41 @@
 local lsp_zero = require('lsp-zero')
 
 lsp_zero.on_attach(function(client, bufnr)
-  -- see :help lsp-zero-keybindings
-  -- to learn the available actions
-  lsp_zero.default_keymaps({buffer = bufnr})
+    -- see :help lsp-zero-keybindings
+    -- to learn the available actions
+    lsp_zero.default_keymaps({buffer = bufnr})
 end)
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  -- Replace the language servers listed here 
-  -- with the ones you want to install
---   ensure_installed = {
---                     'pylsp',
---                     'clangd',
---                     'cssls',
---                     'html',
---                     'marksman',
---                     'rust_analyzer',
---                     'slint_lsp',
---                     'texlab',
---                     'solc'
---                 },
-  handlers = {
-    lsp_zero.default_setup,
-  },
+    -- Replace the language servers listed here 
+    -- with the ones you want to install
+    --   ensure_installed = {
+    --                     'pylsp',
+    --                     'clangd',
+    --                     'cssls',
+    --                     'html',
+    --                     'marksman',
+    --                     'rust_analyzer',
+    --                     'slint_lsp',
+    --                     'texlab',
+    --                     'solc'
+    --                 },
+    handlers = {
+        function(server_name)
+            lsp_zero.default_setup(server_name)
+        end,
+
+        clangd = function()
+            require('lspconfig').clangd.setup {
+                cmd = {
+                    "clangd",
+                    "--background-index",
+                    "--all-scopes-completion",
+                    "--completion-style=detailed",
+                    "--pch-storage=memory",
+                }
+            }
+        end,
+    },
 })

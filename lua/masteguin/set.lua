@@ -29,7 +29,7 @@ vim.opt.breakindent = true
 -- vim.opt.showbreak = string.rep(" ", 3)
 vim.opt.showbreak = "↪ "
 
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "100"
 
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -63,5 +63,39 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = "*",
     callback = function()
         vim.wo.winbar = nil
+    end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "c", "cpp", "h" },
+  callback = function()
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "c", "cpp", "h", "cc", "hpp" },
+    callback = function()
+        vim.keymap.set("n", "=", [[:%!clang-format -assume-filename=% -style=file<CR>]], { buffer = true, noremap = true, silent = true })
+
+        vim.keymap.set("x", "=", function()
+            local s = vim.api.nvim_buf_get_mark(0, "<")[1]
+            local e = vim.api.nvim_buf_get_mark(0, ">")[1]
+            if s == 0 or e == 0 then
+                print("No visual selection for clang-format")
+                return
+            end
+            if s > e then s, e = e, s end
+
+            local file = vim.fn.expand("%:p")
+
+            vim.api.nvim_input("<Esc>")
+
+            local view = vim.fn.winsaveview()
+            vim.cmd(string.format(
+                "%%!clang-format -lines=%d:%d -assume-filename=%s -style=file",
+                s, e, vim.fn.shellescape(file)
+            ))
+            vim.fn.winrestview(view)
+        end, { buffer = true, noremap = true, silent = true })
     end,
 })
