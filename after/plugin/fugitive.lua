@@ -1,0 +1,5 @@
+vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
+vim.keymap.set("n", "<leader>gdf", [[:Git diff<CR>]])
+vim.keymap.set('n', '<leader>ga', [[:Git add ]])
+vim.keymap.set('n', '<leader>gc', [[:Git commit -m "]])
+vim.keymap.set('n', '<leader>gp', [[:Git push -u origin ]])
