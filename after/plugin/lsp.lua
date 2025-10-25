@@ -16,7 +16,8 @@ local function get_invoked_path()
 end
 
 local root_dir = get_invoked_path()
-local PROJECT_ROOT = "/home/pmasteguin/dev"
+local PROJECT_ROOT = "/home/aeroriver/dev"
+local temp_file = nil
 
 local function is_in_dev_tree()
   return root_dir:sub(1, #PROJECT_ROOT) == PROJECT_ROOT
@@ -41,12 +42,11 @@ local function create_temp_ccls()
   end
 
   fd:write("%clang\n")
-  fd:write("%c -std=c18\n")
-  fd:write("%cpp -std=c++20\n")
-  fd:write("%h -x c-header\n\n")
+
   fd:write("-isystem/usr/include\n")
   fd:write("-isystem/usr/local/include\n")
   fd:write("-isystem/usr/lib/llvm-18/lib/clang/18/include\n\n")
+
   fd:write("-DDEBUG\n")
   fd:write("-D_REENTRANT\n")
   fd:write("-DFREERDP_EXPORTS\n")
@@ -63,12 +63,65 @@ local function create_temp_ccls()
     end
   end
 
+  fd:write("%c %h\n")
+  fd:write("-std=c18\n")
+  fd:write("-Wall\n")
+  fd:write("-Wextra\n")
+  fd:write("-Wpedantic\n")
+  fd:write("-Wshadow\n")
+  fd:write("-Wunused\n")
+  fd:write("-Wuninitialized\n")
+  fd:write("-Wmissing-prototypes\n")
+  fd:write("-Wmissing-include-dirs\n")
+  fd:write("-Wredundant-decls\n")
+  fd:write("-Wstrict-prototypes\n")
+  fd:write("-Wimplicit-function-declaration\n")
+  fd:write("-Wundef\n")
+  fd:write("-Werror=return-type\n")
+  fd:write("-Werror=implicit\n\n")
+
+  fd:write("%cpp %hpp\n")
+  fd:write("-std=c++17\n")
+  fd:write("-Wall\n")
+  fd:write("-Wextra\n")
+  fd:write("-Wpedantic\n")
+  fd:write("-Wshadow\n")
+  fd:write("-Wunused\n")
+  fd:write("-Wuninitialized\n")
+  fd:write("-Wmissing-include-dirs\n")
+  fd:write("-Wredundant-decls\n")
+  fd:write("-Wundef\n")
+
   fd:close()
   vim.notify("✅ Arquivo .ccls criado em " .. temp_file, vim.log.levels.INFO)
   return temp_file
 end
 
-local temp_file = create_temp_ccls()
+temp_file = create_temp_ccls()
+
+local function ccls_update()
+  local new_path = create_temp_ccls()
+
+  if not new_path then
+    vim.notify("Falha ao recriar .ccls", vim.log.levels.ERROR)
+  end
+
+  temp_file = new_path
+
+  local clients = vim.lsp.get_active_clients({ name = "ccls" })
+  if #clients == 0 then
+    vim.notify("CCLS não ativo", vim.log.levels.WARN)
+    return
+  end
+
+  for _, client in ipairs(clients) do
+    client.request("workspace/executeCommand", { command = "ccls.reload" })
+  end
+end
+
+vim.api.nvim_create_user_command("CclsUpdate", ccls_update, {})
+
+vim.keymap.set("n", "<leader>lr", ccls_update, { noremap = true, silent = true })
 
 require("lspsaga").setup({
   ui = {
@@ -91,7 +144,7 @@ end)
 if not is_ephemeral_context() then
   vim.lsp.config("ccls", {
     cmd = { "ccls" },
-    filetypes = { "c", "cpp", "objc", "objcpp" },
+    filetypes = { "c", "cpp", "objc", "objcpp", "h", "hpp", "cuda" },
     root_markers = { ".ccls", ".git" },
     init_options = {
       cache = { directory = ".ccls-cache", hierarchicalPath = true },
@@ -103,22 +156,7 @@ if not is_ephemeral_context() then
       codeLens = { localVariables = true },
       clang = {
         resourceDir = "/usr/lib/llvm-18/lib/clang/18/include",
-        extraArgs = {
-          "-Wall",                   -- todos os avisos básicos
-          "-Wextra",                 -- avisos extras úteis
-          "-Wpedantic",              -- padrão ISO C
-          "-Wshadow",                -- variável local sombra outra
-          "-Wunused",                -- inclui var, param, func, label, import não usado
-          "-Wuninitialized",         -- uso de variável sem inicializar
-          "-Wmissing-prototypes",    -- função global sem protótipo
-          "-Wmissing-include-dirs",  -- includes que não existem
-          "-Wredundant-decls",       -- declarações duplicadas
-          "-Wstrict-prototypes",     -- protótipos sem tipo de argumento
-          "-Wimplicit-function-declaration", -- função usada sem declaração
-          "-Wundef",                 -- uso de macros indefinidas
-          "-Werror=return-type",     -- força erro se não retornar algo
-          "-Werror=implicit",        -- força erro em declarações implícitas
-        },
+        extraArgs = {},
       },
       index = {
         threads = 8,
@@ -126,12 +164,24 @@ if not is_ephemeral_context() then
         onChange = true,
         trackDependency = 2,
         reparseForDependency = true,
+        reparseOnFiles = true,
         implementationHierarchy = true,
         initialBlacklist = {},
         initialWhitelist = { ".*" },
       },
       workspaceSymbol = { caseSensitivity = 1, maxNum = 50000, sort = true },
     },
+    capabilities = vim.tbl_deep_extend(
+      "force",
+      vim.lsp.protocol.make_client_capabilities(),
+      {
+        workspace = {
+          didChangeWatchedFiles = {
+            dynamicRegistration = true,
+          }
+        }
+      }
+    ),
     on_attach = function(client, bufnr)
       local opts = { buffer = bufnr, silent = true, noremap = true }
       local keymap = vim.keymap.set
