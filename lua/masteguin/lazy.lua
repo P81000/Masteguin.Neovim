@@ -110,7 +110,34 @@ require("lazy").setup({
                  { "hrsh7th/nvim-cmp" },
                  { "hrsh7th/cmp-nvim-lsp" },
              },
-         }
+         },
+         {
+             "williamboman/mason.nvim",
+             config = function()
+                 require("mason").setup({
+                     automatic_instalation = false,
+                     ensure_installed = {
+                         "lua_ls",
+                         "intelephense",
+                         "laravel_ls"
+                    }
+                })
+             end
+         },
+         {
+             "williamboman/mason-lspconfig.nvim",
+             dependencies = { "williamboman/mason.nvim" },
+             config = function()
+                 require("mason-lspconfig").setup({
+                     automatic_instalation = false,
+                     ensure_installed = {
+                         "lua_ls",
+                         "intelephense",
+                         "laravel_ls"
+                     }
+                 })
+             end
+         },
      },
    
     checker = { enabled = false },

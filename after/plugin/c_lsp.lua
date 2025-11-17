@@ -17,10 +17,19 @@ end
 
 local root_dir = get_invoked_path()
 local PROJECT_ROOT = "/home/aeroriver/dev"
+local PHP_ROOT = "/home/aeroriver/dev/php"
 local temp_file = nil
 
-local function is_in_dev_tree()
-  return root_dir:sub(1, #PROJECT_ROOT) == PROJECT_ROOT
+local function is_in_c_dev_tree()
+  if root_dir:sub(1, #PROJECT_ROOT) ~= PROJECT_ROOT then
+    return false
+  end
+
+  if root_dir:sub(1, #PHP_ROOT) == PHP_ROOT then
+    return false
+  end
+
+  return true
 end
 
 local function is_ephemeral_context()
@@ -34,6 +43,10 @@ local function create_temp_ccls()
     return nil
   end
 
+  if not is_in_c_dev_tree() then
+    return nil
+  end
+
   local temp_file = root_dir .. "/.ccls"
   local fd = io.open(temp_file, "w")
   if not fd then
@@ -42,7 +55,6 @@ local function create_temp_ccls()
   end
 
   fd:write("%clang\n")
-
   fd:write("-isystem/usr/include\n")
   fd:write("-isystem/usr/local/include\n")
   fd:write("-isystem/usr/lib/llvm-18/lib/clang/18/include\n\n")
@@ -53,18 +65,14 @@ local function create_temp_ccls()
   fd:write("-DWITH_X11\n")
   fd:write("-DWITH_CLIENT_CHANNELS\n\n")
 
-  if is_in_dev_tree() then
-    local handle = io.popen("find " .. root_dir .. " -type d -not -path '*/.*' 2>/dev/null")
-    if handle then
-      for dir in handle:lines() do
-        fd:write("-I" .. dir .. "\n")
-      end
-      handle:close()
+  local handle = io.popen("find " .. root_dir .. " -type d -not -path '*/.*' 2>/dev/null")
+  if handle then
+    for dir in handle:lines() do
+      fd:write("-I" .. dir .. "\n")
     end
+    handle:close()
   end
 
-  fd:write("%c %h\n")
-  fd:write("-std=c18\n")
   fd:write("-Wall\n")
   fd:write("-Wextra\n")
   fd:write("-Wpedantic\n")
@@ -79,18 +87,21 @@ local function create_temp_ccls()
   fd:write("-Wundef\n")
   fd:write("-Werror=return-type\n")
   fd:write("-Werror=implicit\n\n")
-
-  fd:write("%cpp %hpp\n")
-  fd:write("-std=c++17\n")
-  fd:write("-Wall\n")
-  fd:write("-Wextra\n")
-  fd:write("-Wpedantic\n")
-  fd:write("-Wshadow\n")
-  fd:write("-Wunused\n")
-  fd:write("-Wuninitialized\n")
-  fd:write("-Wmissing-include-dirs\n")
-  fd:write("-Wredundant-decls\n")
-  fd:write("-Wundef\n")
+-- 
+--   -- Flags para C++ e headers
+--   fd:write("%cpp %hpp\n")
+--   fd:write("-std=c++17\n")
+--   fd:write("-Wall\n")
+--   fd:write("-Wextra\n")
+--   fd:write("-Wpedantic\n")
+--   fd:write("-Wshadow\n")
+--   fd:write("-Wunused\n")
+--   fd:write("-Wuninitialized\n")
+--   fd:write("-Wmissing-include-dirs\n")
+--   fd:write("-Wredundant-decls\n")
+--   fd:write("-Wundef\n")
+--   fd:write("-Werror=return-type\n")
+--   fd:write("-Werror=implicit\n\n")
 
   fd:close()
   vim.notify("✅ Arquivo .ccls criado em " .. temp_file, vim.log.levels.INFO)
@@ -141,7 +152,7 @@ lsp_zero.on_attach(function(client, bufnr)
   lsp_zero.default_keymaps({ buffer = bufnr })
 end)
 
-if not is_ephemeral_context() then
+if not is_ephemeral_context() and is_in_c_dev_tree() then
   vim.lsp.config("ccls", {
     cmd = { "ccls" },
     filetypes = { "c", "cpp", "objc", "objcpp", "h", "hpp", "cuda" },

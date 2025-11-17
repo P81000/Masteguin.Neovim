@@ -1,0 +1,61 @@
+-- local lsp_zero = require("lsp-zero")
+-- vim.lsp.set_log_level("off")
+-- 
+-- local function get_invoked_path()
+--   local arg0 = vim.fn.argv(0)
+-- 
+--   if arg0 == "" or arg0 == nil then
+--     return vim.loop.cwd()
+--   end
+-- 
+--   if vim.fn.isdirectory(arg0) == 0 then
+--     return vim.fn.fnamemodify(arg0, ":p:h")
+--   else
+--     return vim.fn.fnamemodify(arg0, ":p")
+--   end
+-- end
+-- 
+-- local root_dir = get_invoked_path()
+-- local PHP_ROOT = "/home/aeroriver/dev/php"
+-- 
+-- local function is_in_php_dev_tree()
+--   if root_dir:sub(1, #PHP_ROOT) ~= PHP_ROOT then
+--     return false
+--   end
+-- 
+--   return true
+-- end
+-- 
+-- require("lspsaga").setup({
+--   ui = {
+--     border = "rounded",
+--     winblend = 5,
+--     title = true,
+--     expand = "´üö",
+--     collapse = "´ü©",
+--     colors = { normal_bg = "#1e2030" },
+--   },
+--   hover = { max_width = 0.95, max_height = 0.9, open_link = "gx", open_cmd = "!xdg-open" },
+--   symbol_in_winbar = { enable = false },
+--   request_timeout = 5000,
+-- })
+-- 
+-- lsp_zero.on_attach(function(client, bufnr)
+--   lsp_zero.default_keymaps({ buffer = bufnr })
+-- end)
+-- 
+-- vim.lsp.config("intelephense", {
+--     cmd = { "intelephense", "--stdio" },
+--     filetypes = { "php" },
+--     root_markers = { ".git", "composer.json" },
+--     settings = {
+--       intelephense = {
+--         diagnostics = { enable = true },
+--         files = { maxSize = 5000000 },
+--         stubs = {
+--           "apache", "bcmath", "bz2", "calendar", "Core", "date", "filter", "gd",
+--           "json", "mbstring", "mysqli", "PDO", "session", "SimpleXML", "standard", "xml"
+--         }
+--       }
+--     }
+-- })

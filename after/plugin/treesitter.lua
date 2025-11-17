@@ -6,7 +6,10 @@ require"nvim-treesitter.configs".setup {
     "git_config",
     "gitignore",
     "vim",
-    "vimdoc"
+    "vimdoc",
+    "php",
+    "phpdoc",
+    "html"
   },
 
   sync_install = true,
