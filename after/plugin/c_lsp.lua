@@ -16,8 +16,8 @@ local function get_invoked_path()
 end
 
 local root_dir = get_invoked_path()
-local PROJECT_ROOT = "/home/pmasteguin/dev"
-local PHP_ROOT = "/home/pmasteguin/dev/php"
+local PROJECT_ROOT = "/home/aeroriver/dev"
+local PHP_ROOT = "/home/aeroriver/dev/php"
 local temp_file = nil
 
 local function is_in_c_dev_tree()
