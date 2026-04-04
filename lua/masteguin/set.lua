@@ -3,8 +3,8 @@ vim.opt.guicursor = ""
 vim.g.clipboard = {
 	name = "WslClipboard",
 	copy = {
-		["+"] = "clip.exe",
-		["*"] = "clip.exe"
+		["+"] = {"sh", "-c", "iconv -f utf-8 -t utf-16le | clip.exe"},
+		["*"] = {"sh", "-c", "iconv -f utf-8 -t utf-16le | clip.exe"}
 	},
 	paste = {
 		["+"] = "powershell.exe -NoProfile -Command Get-Clipboard",

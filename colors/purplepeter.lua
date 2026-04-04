@@ -1,6 +1,14 @@
 -- purplepeter.nvim - Colorscheme standalone para Neovim 0.11
 -- Gerado a partir da paleta fornecida
 
+vim.cmd("highlight clear")
+
+if vim.fn.exists("syntax_on") then
+  vim.cmd("syntax reset")
+end
+
+vim.g.colors_name = "purplepeter"
+
 local colors = {
   black            = "#0a0520",
   red              = "#ff796d",

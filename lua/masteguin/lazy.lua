@@ -139,7 +139,7 @@ require("lazy").setup({
              end
          },
      },
-   
+
     checker = { enabled = false },
     ui = { border = "single" },
 })

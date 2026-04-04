@@ -67,3 +67,29 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.keymap.set('n', '<leader>t', '<cmd>Lspsaga term_toggle<CR>', { silent = true, noremap = true })
+
+
+local use_vsplit = true
+
+vim.keymap.set("n", "<leader>gd", function()
+  local win_count = vim.fn.winnr("$")
+
+  if win_count == 1 then
+    use_vsplit = true
+  end
+
+  if use_vsplit then
+    vim.cmd("rightbelow vsplit")
+  else
+    vim.cmd("belowright split")
+  end
+
+  use_vsplit = not use_vsplit
+  vim.lsp.buf.definition()
+end, { desc = "Go to definition alternating split" })
+
+vim.keymap.set("i", "{", "{}<Left>")
+vim.keymap.set("i", "(", "()<Left>")
+vim.keymap.set("i", "[", "[]<Left>")
+vim.keymap.set("i", '"', '""<Left>')
+vim.keymap.set("i", "'", "''<Left>")
