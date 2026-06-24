@@ -21,39 +21,17 @@ require("lazy").setup({
              dependencies = { "nvim-lua/plenary.nvim" },
          },
          {
-             "EdenEast/nightfox.nvim",
-             config = function()
-                 vim.cmd("colorscheme nightfox")
-             end
-         },
-         {
-             "bluz71/vim-moonfly-colors",
-             config = function()
-                 vim.cmd("colorscheme moonfly")
-             end
-         },
-         {
              "no-clown-fiesta/no-clown-fiesta.nvim",
-             config = function()
-                 vim.cmd("colorscheme no-clown-fiesta")
-             end
          },
          {
              "killitar/obscure.nvim",
-             config = function()
-                 vim.cmd("colorscheme obscure")
-             end
          },
          {
              "savq/melange-nvim",
-             config = function()
-                 vim.cmd("colorscheme melange")
-             end
          },
          {
              "rose-pine/neovim",
              config = function()
-                 vim.cmd("colorscheme rose-pine")
                  require("rose-pine").setup({
                      styles = {
                          bold = true,
@@ -88,7 +66,24 @@ require("lazy").setup({
              end,
          },
          {
-             "nvim-treesitter/nvim-treesitter"
+             "nvim-treesitter/nvim-treesitter",
+             build = ":TSUpdate",
+             lazy = false,
+             config = function()
+                 local status, ts = pcall(require, "nvim-treesitter.configs")
+                 if not status then return end
+
+                 ts.setup({
+                     ensure_installed = {
+                         "c", "cpp", "lua", "vim", "vimdoc", "query", "php", "html"
+                     },
+                     highlight = {
+                         enable = true,
+                         additional_vim_regex_highlighting = false,
+                     },
+                     indent = { enable = true },
+                 })
+             end,
          },
          {
              "theprimeagen/harpoon"
@@ -115,7 +110,7 @@ require("lazy").setup({
              "williamboman/mason.nvim",
              config = function()
                  require("mason").setup({
-                     automatic_instalation = false,
+                     automatic_installation = false,
                      ensure_installed = {
                          "lua_ls",
                          "intelephense",
@@ -129,17 +124,70 @@ require("lazy").setup({
              dependencies = { "williamboman/mason.nvim" },
              config = function()
                  require("mason-lspconfig").setup({
-                     automatic_instalation = false,
+                     automatic_installation = false,
                      ensure_installed = {
                          "lua_ls",
-                         "intelephense",
                          "laravel_ls"
                      }
                  })
              end
          },
+         {
+             "kevinhwang91/nvim-ufo",
+             dependencies = "kevinhwang91/promise-async",
+             event = "BufReadPost",
+             config = function()
+                 vim.opt.foldcolumn = '1'
+                 vim.opt.foldlevel = 99
+                 vim.opt.foldlevelstart = 99
+                 vim.opt.foldenable = true
+                 vim.opt.fillchars = {
+                     eob       = " ",
+                     fold      = " ",
+                     foldopen  = "▾",   -- U+25BE
+                     foldsep   = " ",
+                     foldclose = "▸",   -- U+25B8
+                 }
+
+                 local function c_cpp_provider(bufnr)
+                     local ranges = require('ufo.provider.indent').getFolds(bufnr)
+
+                     local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+                     local inc_start = nil
+                     for i, line in ipairs(lines) do
+                         if line:match("^%s*#%s*include") then
+                             if not inc_start then inc_start = i - 1 end
+                         else
+                             if inc_start ~= nil then
+                                 if (i - 2) > inc_start then
+                                     table.insert(ranges, { startLine = inc_start, endLine = i - 2, kind = 'imports' })
+                                 end
+                                 inc_start = nil
+                             end
+                         end
+                     end
+                     if inc_start and (#lines - 1) > inc_start then
+                         table.insert(ranges, { startLine = inc_start, endLine = #lines - 1, kind = 'imports' })
+                     end
+
+                     return ranges
+                 end
+
+                 require('ufo').setup({
+                     provider_selector = function(bufnr, filetype, buftype)
+                         if filetype == 'c' or filetype == 'cpp' then
+                             return c_cpp_provider
+                         end
+                         return { 'treesitter', 'indent' }
+                     end
+                 })
+
+                 vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+                 vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+             end
+         }
      },
 
-    checker = { enabled = false },
-    ui = { border = "single" },
-})
+     checker = { enabled = false },
+     ui = { border = "single" },
+ })

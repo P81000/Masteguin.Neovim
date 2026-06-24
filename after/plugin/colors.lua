@@ -5,6 +5,21 @@ local pickers = require('telescope.pickers')
 local finders = require('telescope.finders')
 local sorters = require('telescope.sorters')
 
+local function apply_theme(theme)
+    vim.cmd("highlight clear")
+    vim.cmd("syntax reset")
+
+    vim.cmd.colorscheme(theme)
+
+    vim.api.nvim_set_hl(0, "Normal", {
+        bg = "none"
+    })
+
+    vim.api.nvim_set_hl(0, "NormalFloat", {
+        bg = "none"
+    })
+end
+
 -- Caminho do arquivo para armazenar a ultima opcao escolhida
 local theme_file_path = vim.fn.stdpath('config') .. '/last_selected_theme'
 
@@ -17,12 +32,10 @@ if not vim.g.selected_theme then
 end
 
 local available_themes = {
-  'moonfly',
   'no-clown-fiesta',
   'obscure',
   'melange',
   'rose-pine',
-  'purplepeter'
 }
 
 function changeTheme()
@@ -47,10 +60,7 @@ function changeTheme()
 
         vim.g.selected_theme = selection[1]
 
-        vim.cmd.colorscheme(vim.g.selected_theme)
-
---         vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
---         vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+        apply_theme(vim.g.selected_theme)
 
         vim.fn.writefile({ vim.g.selected_theme }, theme_file_path)
 
@@ -62,6 +72,4 @@ function changeTheme()
   }):find()
 end
 
-vim.cmd.colorscheme(vim.g.selected_theme)
--- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
--- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+apply_theme(vim.g.selected_theme)

@@ -1,17 +1,8 @@
 vim.opt.guicursor = ""
 
-vim.g.clipboard = {
-	name = "WslClipboard",
-	copy = {
-		["+"] = {"sh", "-c", "iconv -f utf-8 -t utf-16le | clip.exe"},
-		["*"] = {"sh", "-c", "iconv -f utf-8 -t utf-16le | clip.exe"}
-	},
-	paste = {
-		["+"] = "powershell.exe -NoProfile -Command Get-Clipboard",
-		["*"] = "powershell.exe -NoProfile -Command Get-Clipboard"
-	}
-}
+vim.opt.clipboard = "unnamedplus"
 
+vim.opt.nu = true
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
@@ -20,7 +11,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
-vim.opt.smartindent = true
+-- vim.opt.smartindent = true
 
 vim.opt.linebreak = true
 vim.opt.wrap = true
@@ -49,4 +40,14 @@ vim.diagnostic.config({
     virtual_lines = { current_line = true }
 })
 
+vim.o.shell = "/bin/bash"
+vim.o.shellcmdflag = "-l -c"
+
 -- vim.lsp.set_log_level("debug")
+
+
+vim.filetype.add({
+  pattern = {
+    ['.*%.blade%.php'] = 'php',
+  },
+})
