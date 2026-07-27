@@ -32,52 +32,74 @@ if not is_ephemeral_context() and is_in_c_dev_tree() then
     lineFoldingOnly = true
   }
 
-  -- ==========================================================
-  -- 1. STERILIZE THE ENVIRONMENT
-  -- Prevent ~/.bash_profile's CPATH from causing ODR crashes
-  -- ==========================================================
+  -- Sterilize environment to prevent bash_profile crashes
   local sterile_env = vim.fn.environ()
   sterile_env.CPATH = nil
   sterile_env.CPLUS_INCLUDE_PATH = nil
   sterile_env.CPPFLAGS = nil
 
-  vim.lsp.config("clangd", {
-    cmd = { 
-        CLANGD_CMD,
-        "--background-index",
-        "--clang-tidy",
-        "--completion-style=detailed",
-        "--header-insertion=iwyu",
-        "--limit-results=20",
-        "--query-driver=" .. LLVM_BIN_CPP .. "," .. LLVM_BIN_C
-    },
+  -- Base command shared by both C and C++
+  local base_cmd = {
+      CLANGD_CMD,
+      "--background-index",
+      "--clang-tidy",
+      "--completion-style=detailed",
+      "--header-insertion=iwyu",
+      "--limit-results=20",
+      "--query-driver=" .. LLVM_BIN_CPP .. "," .. LLVM_BIN_C
+  }
+
+  -- Keymaps shared by both servers
+  local on_attach_custom = function(client, bufnr)
+    local opts = { buffer = bufnr, silent = true, noremap = true }
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
+    vim.keymap.set("n", "gh", "<cmd>Lspsaga finder def+ref<CR>", opts)
+    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+  end
+
+  -- ==========================================================
+  -- SERVER 1: C++ CONFIGURATION
+  -- ==========================================================
+  vim.lsp.config("clangd_cpp", {
+    cmd = base_cmd,
     cmd_env = sterile_env,
-    filetypes = { "c", "cpp", "objc", "objcpp", "h", "hpp" },
+    filetypes = { "cpp", "objc", "objcpp", "hpp" },
     root_markers = { "compile_commands.json", ".git" },
     capabilities = capabilities,
-    
-    -- ==========================================================
-    -- 2. UNIVERSAL FALLBACK FLAGS (For loose files without CMake)
-    -- ==========================================================
     init_options = {
       fallbackFlags = {
         "-std=c++23",
-        "-D_LIBCPP_DISABLE_AVAILABILITY", -- The Apple Silicon Magic Key
+        "-D_LIBCPP_DISABLE_AVAILABILITY",
         "-Wall",
+        "-Werror",
         "-Wextra"
       }
     },
-
-    on_attach = function(client, bufnr)
-      local opts = { buffer = bufnr, silent = true, noremap = true }
-      vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-      vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
-      vim.keymap.set("n", "gh", "<cmd>Lspsaga finder def+ref<CR>", opts)
-      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-    end,
+    on_attach = on_attach_custom,
   })
-  
-  vim.lsp.enable("clangd")
+  vim.lsp.enable("clangd_cpp")
+
+  -- ==========================================================
+  -- SERVER 2: PURE C CONFIGURATION
+  -- ==========================================================
+  vim.lsp.config("clangd_c", {
+    cmd = base_cmd,
+    cmd_env = sterile_env,
+    filetypes = { "c", "h" },
+    root_markers = { "compile_commands.json", ".git" },
+    capabilities = capabilities,
+    init_options = {
+      fallbackFlags = {
+        "-std=c11",
+        "-Wall",
+        "-Werror",
+        "-Wextra"
+      }
+    },
+    on_attach = on_attach_custom,
+  })
+  vim.lsp.enable("clangd_c")
 end
 
 vim.diagnostic.config({ virtual_text = { spacing = 2, prefix = "●" }, severity_sort = true })

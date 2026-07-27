@@ -98,6 +98,13 @@ require("lazy").setup({
              "neovim/nvim-lspconfig"
          },
          {
+             "OXY2DEV/markview.nvim",
+             lazy = false,
+
+             -- Completion for `blink.cmp`
+             -- dependencies = { "saghen/blink.cmp" },
+         },
+         {
              "VonHeikemen/lsp-zero.nvim",
              branch = "v3.x",
              dependencies = {
