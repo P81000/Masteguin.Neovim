@@ -91,7 +91,7 @@ if not is_ephemeral_context() and is_in_c_dev_tree() then
     capabilities = capabilities,
     init_options = {
       fallbackFlags = {
-        "-std=c11",
+        "-std=c23",
         "-Wall",
         "-Werror",
         "-Wextra"
