@@ -30,6 +30,12 @@ require("lazy").setup({
              "savq/melange-nvim",
          },
          {
+             "gosukiwi/vim-atom-dark",
+         },
+         {
+             "sdhrt/codesandbox-theme.nvim",
+         },
+         {
              "rose-pine/neovim",
              config = function()
                  require("rose-pine").setup({

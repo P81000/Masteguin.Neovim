@@ -36,6 +36,8 @@ local available_themes = {
   'obscure',
   'melange',
   'rose-pine',
+  'atom-dark',
+  'codesandbox',
 }
 
 function changeTheme()
