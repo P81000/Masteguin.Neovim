@@ -30,6 +30,12 @@ require("lazy").setup({
              "savq/melange-nvim",
          },
          {
+             "gosukiwi/vim-atom-dark",
+         },
+         {
+             "sdhrt/codesandbox-theme.nvim",
+         },
+         {
              "rose-pine/neovim",
              config = function()
                  require("rose-pine").setup({
@@ -42,14 +48,17 @@ require("lazy").setup({
              end
          },
          {
-             "APZelos/blamer.nvim",
+             "lewis6991/gitsigns.nvim",
              config = function()
-                 vim.g.blamer_enabled = true
-                 vim.g.blamer_delay = 1500
-                 vim.g.blamer_show_in_visual_modes = 0
-                 vim.g.blamer_show_in_insert_modes = 0
-                 vim.g.blamer_prefix = " >> "
-                 vim.g.blamer_relative_time = 1
+                 require('gitsigns').setup({
+                     current_line_blame = true,
+                     current_line_blame_opts = {
+                         virt_text = true,
+                         virt_text_pos = 'eol',
+                         delay = 1500,
+                     },
+                     current_line_blame_formatter = ' >> <author>, <author_time:%R> - <summary>',
+                 })
              end
          },
          {
@@ -86,7 +95,9 @@ require("lazy").setup({
              end,
          },
          {
-             "theprimeagen/harpoon"
+             "theprimeagen/harpoon",
+             branch = "harpoon2",
+             dependencies = { "nvim-lua/plenary.nvim" },
          },
          {
              "mbbill/undotree"

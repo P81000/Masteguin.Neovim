@@ -66,7 +66,9 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.keymap.set('n', '<leader>t', '<cmd>Lspsaga term_toggle<CR>', { silent = true, noremap = true })
+local shell_win = vim.fn.executable("pwsh.exe") == 1 and "pwsh.exe" or "powershell.exe"
+local term_cmd = vim.fn.has("win32") == 1 and ("<cmd>Lspsaga term_toggle " .. shell_win .. "<CR>") or "<cmd>Lspsaga term_toggle<CR>"
+vim.keymap.set('n', '<leader>t', term_cmd, { silent = true, noremap = true })
 
 
 local use_vsplit = true

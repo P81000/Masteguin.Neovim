@@ -1,20 +1,21 @@
 -- c_lsp.lua
 local lsp_zero = require("lsp-zero")
 
-local root_dir = vim.fn.getcwd()
-local PROJECT_ROOT = "/Users/masteguin/dev/codes"
+local is_windows = vim.fn.has("win32") == 1
+local root_dir = vim.fs.normalize(vim.fn.getcwd())
+local PROJECT_ROOT = is_windows and "C:/dev" or "/Users/masteguin/dev/codes"
 
-local LLVM_BIN_CPP = "/Users/masteguin/dev/.homebrew/opt/llvm/bin/clang++"
-local LLVM_BIN_C = "/Users/masteguin/dev/.homebrew/opt/llvm/bin/clang"
-local CLANGD_CMD = "/Users/masteguin/dev/.homebrew/opt/llvm/bin/clangd"
+local LLVM_BIN_CPP = is_windows and "C:/Program Files/LLVM/bin/clang++.exe" or "/Users/masteguin/dev/.homebrew/opt/llvm/bin/clang++"
+local LLVM_BIN_C = is_windows and "C:/Program Files/LLVM/bin/clang.exe" or "/Users/masteguin/dev/.homebrew/opt/llvm/bin/clang"
+local CLANGD_CMD = is_windows and "C:/Program Files/LLVM/bin/clangd.exe" or "/Users/masteguin/dev/.homebrew/opt/llvm/bin/clangd"
 
 local function is_in_c_dev_tree()
-  return root_dir:sub(1, #PROJECT_ROOT) == PROJECT_ROOT
+  return root_dir:sub(1, #PROJECT_ROOT):lower() == PROJECT_ROOT:lower()
 end
 
 local function is_ephemeral_context()
   local args = table.concat(vim.v.argv, " ")
-  return args:match("nvimdiff") or args:match("difftool") or root_dir:match("^/tmp") or root_dir == "/"
+  return args:match("nvimdiff") or args:match("difftool") or root_dir:match("^/tmp") or root_dir:match("Temp") or root_dir == "/"
 end
 
 local status_saga, lspsaga = pcall(require, "lspsaga")
@@ -41,12 +42,13 @@ if not is_ephemeral_context() and is_in_c_dev_tree() then
   -- Base command shared by both C and C++
   local base_cmd = {
       CLANGD_CMD,
+      "--compile-commands-dir=C:/Users/masteguin/.cache/avcore-lsp",
       "--background-index",
       "--clang-tidy",
       "--completion-style=detailed",
       "--header-insertion=iwyu",
       "--limit-results=20",
-      "--query-driver=" .. LLVM_BIN_CPP .. "," .. LLVM_BIN_C
+      "--query-driver=" .. LLVM_BIN_CPP .. "," .. LLVM_BIN_C .. ",C:/Program Files/LLVM/bin/clang-cl.exe"
   }
 
   -- Keymaps shared by both servers
